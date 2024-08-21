@@ -31,7 +31,9 @@ To run the code, have all aforementioned files in your current working directory
 
 Note that the scripts visual_fire.m and visual_plume.m are designed to read frames from a video. To load an image sequence rather than a video, sample MATLAB code to load all frames from a directory and preallocate needed space is as follows:
 ```
-directory = dir("./frames/*.png"); % Replace this path with the path to your frames! This example assumes sequentially numbered images in a directory called 'frames' within the current working directory.
+% Replace this path with the path to your frames
+% This example assumes sequentially numbered images in a directory called 'frames' within the current working directory.
+directory = dir("./frames/*.png");
 file_names = {directory.name}';
 total_frames = numel(file_names);
 clear directory
