@@ -48,6 +48,7 @@ If an image sequence is used instead of a video, remember to manually declare th
 ## Authors
 
 Daryn Sagel, dsagel@fsu.edu
+
 Bryan Quaife, bquaife@fsu.edu
 
 ## Copyright
