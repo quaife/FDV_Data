@@ -45,9 +45,11 @@ temp = imread(file_names{i});
 
 If an image sequence is used instead of a video, remember to manually declare the fps and Hz variables, as in the infrared_fire.m file.
 
-## Authors
+## Author
 
 Daryn Sagel, dsagel@fsu.edu
+
+## Correspondence
 
 Bryan Quaife, bquaife@fsu.edu
 
