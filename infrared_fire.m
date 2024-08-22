@@ -2,6 +2,11 @@
 % Fire Dynamic Vision (FDV) sample script for processing infrared data
 % Created by Daryn Sagel, dsagel@fsu.edu
 
+% © 2024 Daryn Sagel
+% This file is part of Fire Dynamic Vision.
+% This code is licensed under the MIT License.
+% See the LICENSE file in the project root for license terms.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Edit values in the following section as needed:

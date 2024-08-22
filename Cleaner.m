@@ -1,6 +1,11 @@
 % Fire Dynamic Vision (FDV) function for per-layer hierarchical cleaning
 % Created by Daryn Sagel, dsagel@fsu.edu
 
+% © 2024 Daryn Sagel
+% This file is part of Fire Dynamic Vision.
+% This code is licensed under the MIT License.
+% See the LICENSE file in the project root for license terms.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % There is no need to run this script, but it should be in your current

@@ -1,6 +1,11 @@
 % Fire Dynamic Vision (FDV) sample script for viewing infrared results
 % Created by Daryn Sagel, dsagel@fsu.edu
 
+% © 2024 Daryn Sagel
+% This file is part of Fire Dynamic Vision.
+% This code is licensed under the MIT License.
+% See the LICENSE file in the project root for license terms.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Run this script only after successfully running "infrared_fire.m" file
