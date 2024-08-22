@@ -57,4 +57,4 @@ Bryan Quaife, bquaife@fsu.edu
 
 ## Copyright
 
-?
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for the full text.
