@@ -58,6 +58,7 @@ Bryan Quaife, bquaife@fsu.edu
 ## License and Citation
 
 If this code is used in your research or publications, please cite the following reference to acknowledge the original work:
+
 Sagel, D., & Quaife, B. (2024). Fire dynamic vision: Image segmentation and tracking for multi-scale fire and plume behavior. arXiv. https://arxiv.org/abs/2408.08984
 
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE.txt) file for the full text.
