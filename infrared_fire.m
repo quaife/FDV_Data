@@ -15,9 +15,6 @@
 % Load infrared data
 load("infrared_fire.mat");
 
-% Enter the total amount of time
-total_time = 67; % seconds
-
 % If not processing the entire dataset, enter start and stop times
 start = 1; % seconds
 stop = 40; % seconds
