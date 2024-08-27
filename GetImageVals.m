@@ -15,9 +15,10 @@
 
 function [colorvals, suggestedrange] = GetImageVals(img)
 
-toDisp = ['Press ENTER when done selecting points.'];
+toDisp = ['Select points representative of the area of interest. Press ENTER when done selecting points.'];
 disp(toDisp)
 
+f = figure;
 imshow(img)
 [x,y] = ginput;
 numpts = size(x,1);
@@ -41,5 +42,7 @@ bmin = min(colorvals(:,3));
 bmax = max(colorvals(:,3));
 
 suggestedrange = [rmin gmin bmin; rmax gmax bmax];
+
+close(f)
 end
 
