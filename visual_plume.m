@@ -31,14 +31,13 @@ rad1 = 3; num1 = 10; % search radius 3 px, 10 nonzero neighbors (small structure
 % Alpha shape parameter for boundary calculation
 alpha = 1/3;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Recommended RGB value ranges from the paper are
 % R: [108 220] G: [102 231] B: [109 252]
 % Recommended HSV value ranges from the paper are
 % H: [0.0278 0.9524] S: [0.0152 0.2128] V: [0.6039 0.9098]
-% To use these values, overwrite the suggestedrangeRGB and
-% suggestedrangeHSV arrays below.
+% To use these values, set papervals = 1. Otherwise, papervals = 0.
+papervals = 1;
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -60,29 +59,35 @@ xyuv{total_frames-1} = []; % velocities associated with x-y coordinates
 all_frames = dir(files);
 file_names = {all_frames.name}';
 
-% Pick a sample frame from middle of video for RGB and HSV selection
-framenum = fps * floor((start + stop) / 2);
-f = fullfile(directory,file_names{framenum});
-temp = imread(f);
-
-% Select RGB values from sample frame
-[~, suggestedrangeRGB] = GetImageVals(temp);
-% Resulting array is arranged as:
-% [ r_low   b_low   g_low  ]
-% [ r_high  b_high  g_high ]
-
-% Segment sample frame
-mask = temp(:,:,1) >= suggestedrangeRGB(1,1) & temp(:,:,1) <= suggestedrangeRGB(2,1) ...
-    & temp(:,:,2) >= suggestedrangeRGB(1,2) & temp(:,:,2) <= suggestedrangeRGB(2,2) ...
-    & temp(:,:,3) >= suggestedrangeRGB(1,3) & temp(:,:,3) <= suggestedrangeRGB(2,3);
-temp(:,:,1) = double(temp(:,:,1)).*double(mask);
-temp(:,:,2) = double(temp(:,:,2)).*double(mask);
-temp(:,:,3) = double(temp(:,:,3)).*double(mask);
-
-% Select HSV values from remaining points in sample frame
-[~, suggestedrangeHSV] = GetImageVals(rgb2hsv(temp));
-
-clear temp mask framenum f
+% Use suggested RGB-HSV ranges or find your own
+if papervals == 0
+    % Pick a sample frame from middle of video for RGB and HSV selection
+    framenum = fps * floor((start + stop) / 2);
+    f = fullfile(directory,file_names{framenum});
+    temp = imread(f);
+    
+    % Select RGB values from sample frame
+    [~, suggestedrangeRGB] = GetImageVals(temp);
+    % Resulting array is arranged as:
+    % [ r_low   b_low   g_low  ]
+    % [ r_high  b_high  g_high ]
+    
+    % Segment sample frame
+    mask = temp(:,:,1) >= suggestedrangeRGB(1,1) & temp(:,:,1) <= suggestedrangeRGB(2,1) ...
+        & temp(:,:,2) >= suggestedrangeRGB(1,2) & temp(:,:,2) <= suggestedrangeRGB(2,2) ...
+        & temp(:,:,3) >= suggestedrangeRGB(1,3) & temp(:,:,3) <= suggestedrangeRGB(2,3);
+    temp(:,:,1) = double(temp(:,:,1)).*double(mask);
+    temp(:,:,2) = double(temp(:,:,2)).*double(mask);
+    temp(:,:,3) = double(temp(:,:,3)).*double(mask);
+    
+    % Select HSV values from remaining points in sample frame
+    [~, suggestedrangeHSV] = GetImageVals(rgb2hsv(temp));
+    
+    clear temp mask framenum f
+elseif papervals == 1
+    suggestedrangeRGB = [108 102 109; 220 231 252];
+    suggestedrangeHSV = [0.0278 0.0152 0.6039; 0.9524 0.2128 0.9098];
+end
 
 % Segment frames according to RGB and HSV thresholds
 counter = 1;
@@ -153,7 +158,7 @@ clear i toDisp r c
 % In case a video contains blank frames or frames have been dropped, check
 % that a frame is not blank and, if it is, interpolate it as the average
 % of the positions in the frames before and after
-for i = 2:total_frames-1
+for i = 2:total_frames
    if isempty(points{i})
        length_before = length(points{i-1});
        length_after = length(points{i+1});
