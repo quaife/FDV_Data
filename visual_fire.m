@@ -1,10 +1,5 @@
-% Fire Dynamic Vision (FDV) sample script for processing infrared data
+% Fire Dynamic Vision (FDV) sample script for processing visual fire data
 % Created by Daryn Sagel, dsagel@fsu.edu
-
-% © 2024 Daryn Sagel
-% This file is part of Fire Dynamic Vision.
-% This code is licensed under the MIT License.
-% See the LICENSE file in the project root for license terms.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -12,37 +7,33 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Load infrared data
-load("infrared_fire.mat");
-
-% Enter the total amount of time
-total_time = 67; % seconds
+% Read in the video, get total videa time (in seconds) and fps
+v = VideoReader('visual_fire.mp4'); % Edit this line to change file name
 
 % If not processing the entire dataset, enter start and stop times
 start = 1; % seconds
-stop = 40; % seconds
+stop = 24; % seconds
 
-% Define the video's framerate (fps) and the frequency to sample (Hz)
-fps = 1;
-Hz = 1;
+% Select the frequency to sample (Hz)
+Hz = 2;
 
 % Define the per-pixel spatial resolution
-length_per_px = 0.8696; % cm/px
-
-% Set temperature thresholding range as [lower_limit upper_limit]
-% Below are sample values for this dataset, given in degrees Celsius
-temperature_thresholds = [200 800];
+length_per_px = 200/252; % cm/px
 
 % Define search radius and nearest neighbor thresholds for cleaning layers
 % Add layers as needed! Make sure you insert code for them below.
-rad2 = 15; num2 = 200; % search radius 15 px, 200 nonzero neighbors (large structures)
-rad1 = 3; num1 = 5; % search radius 3 px, 5 nonzero neighbors (small structures)
+rad2 = 10; num2 = 70; % search radius 10 px, 70 nonzero neighbors (large structures)
+rad1 = 3; num1 = 10; % search radius 3 px, 10 nonzero neighbors (small structures)
 
 % Alpha shape parameter for boundary calculation
 alpha = 1/3;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Get duration and framerate from video data
+total_time = v.Duration;
+fps = v.FrameRate;
 
 % Calculate how many frames are between samples
 % (in case of sampling at a rate other than the video's framerate)
@@ -58,21 +49,63 @@ vel_horizontal = []; % list of all horizontal velocities (in px/timestep)
 vel_vertical = []; % list of all vertical velocities (in px/timestep)
 xyuv{total_frames-1} = []; % velocities associated with x-y coordinates
 
-% Segment frames according to temperature thresholds
+% Pick a sample frame from middle of video for RGB and HSV selection
+framenum = fps*(start + floor(total_time/2));
+temp = read(v, framenum);
+
+% Select RGB values from sample frame
+[~, suggestedrangeRGB] = GetImageVals(temp);
+% Resulting array is arranged as:
+% [ r_low   b_low   g_low  ]
+% [ r_high  b_high  g_high ]
+
+% Segment sample frame
+mask = temp(:,:,1) >= suggestedrangeRGB(1,1) & temp(:,:,1) <= suggestedrangeRGB(2,1) ...
+    & temp(:,:,2) >= suggestedrangeRGB(1,2) & temp(:,:,2) <= suggestedrangeRGB(2,2) ...
+    & temp(:,:,3) >= suggestedrangeRGB(1,3) & temp(:,:,3) <= suggestedrangeRGB(2,3);
+temp(:,:,1) = double(temp(:,:,1)).*double(mask);
+temp(:,:,2) = double(temp(:,:,2)).*double(mask);
+temp(:,:,3) = double(temp(:,:,3)).*double(mask);
+
+% Select HSV values from remaining points in sample frame
+[~, suggestedrangeHSV] = GetImageVals(rgb2hsv(temp));
+
+clear temp mask framenum
+
+% Segment frames according to RGB and HSV thresholds
 counter = 1;
-for i = start*fps:fphz:stop*fps-fphz
-    
+for i = start*fps:fphz:stop*fps - fphz
     toDisp = ['Segmenting frame #', num2str(counter), ' of ', num2str(total_frames)];
     disp(toDisp)
     
-    temp = temperatures(:,:,i);
-    mask = temp >= temperature_thresholds(1) & temp <= temperature_thresholds(2);
-    final{counter} = double(temp) .* double(mask);
+    temp = read(v,i);
+    
+    % Segment RGB
+    mask = temp(:,:,1) >= suggestedrangeRGB(1,1) & temp(:,:,1) <= suggestedrangeRGB(2,1) ...
+        & temp(:,:,2) >= suggestedrangeRGB(1,2) & temp(:,:,2) <= suggestedrangeRGB(2,2) ...
+        & temp(:,:,3) >= suggestedrangeRGB(1,3) & temp(:,:,3) <= suggestedrangeRGB(2,3);
+    temp(:,:,1) = double(temp(:,:,1)).*double(mask);
+    temp(:,:,2) = double(temp(:,:,2)).*double(mask);
+    temp(:,:,3) = double(temp(:,:,3)).*double(mask);
+    
+    % Convert to HSV
+    temp = rgb2hsv(temp);
+    
+    % Segment HSV
+    mask = temp(:,:,1) >= suggestedrangeHSV(1,1) & temp(:,:,1) <= suggestedrangeHSV(2,1) ...
+        & temp(:,:,2) >= suggestedrangeHSV(1,2) & temp(:,:,2) <= suggestedrangeHSV(2,2) ...
+        & temp(:,:,3) >= suggestedrangeHSV(1,3) & temp(:,:,3) <= suggestedrangeHSV(2,3);
+    temp(:,:,1) = double(temp(:,:,1)).*double(mask);
+    temp(:,:,2) = double(temp(:,:,2)).*double(mask);
+    temp(:,:,3) = double(temp(:,:,3)).*double(mask);
+    
+    % Flatten image array to 2D
+    final{counter} = temp(:,:,1) + temp(:,:,2) + temp(:,:,3);
     
     counter = counter + 1;
 end
 
-clear i mask toDisp counter temp
+clear i mask temp toDisp counter v
 
 % Clean frames using hierarchical cleaning layers according to values
 % defined at the top of this script
@@ -86,7 +119,7 @@ for i = 1:total_frames
     
     clean = temp;
     clean = Cleaner(clean,rad2,num2);
-    clean = Cleaner(clean,rad1,num1);
+    clean = Cleaner(clean,rad2,num2);
     final_clean{i} = double(Cleaner(clean,rad1,num1));
 end
 
