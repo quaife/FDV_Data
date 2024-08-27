@@ -39,8 +39,7 @@ alpha = 1/3;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Get duration and framerate from video data
-total_time = v.Duration;
+% Get framerate from video data
 fps = v.FrameRate;
 
 % Calculate how many frames are between samples
@@ -58,7 +57,7 @@ vel_vertical = []; % list of all vertical velocities (in px/timestep)
 xyuv{total_frames-1} = []; % velocities associated with x-y coordinates
 
 % Pick a sample frame from middle of video for RGB and HSV selection
-framenum = fps*(start + floor(total_time/2));
+framenum = fps * floor((start + stop) / 2);
 temp = read(v, framenum);
 
 % Select RGB values from sample frame
