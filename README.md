@@ -29,7 +29,7 @@ The visualization files can be run in sections depending on what you want to vis
 
 To run the code, have all aforementioned files in your current working directory and select 'Run' under the 'EDITOR' menu in MATLAB's interface.
 
-Note that the scripts visual_fire.m is designed to read frames from a video and visual_plume.m is designed to demonstrate the process of loading frames from an image sequence rather than a video. In this scenario, the images are stored in a file inside the current working directory. If an image sequence is used instead of a video, remember to manually declare the fps and Hz variables, as in the infrared_fire.m and visual_plume.m files.
+Note that the visual_fire.m script is designed to read frames from a video and the visual_plume.m script is designed to load frames from an image sequence. In this scenario, the images are stored in a file inside the current working directory. If an image sequence is used instead of a video, remember to manually declare the fps and Hz variables, as in the infrared_fire.m and visual_plume.m files.
 
 ## Author
 
