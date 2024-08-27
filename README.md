@@ -19,7 +19,7 @@ Both this code and the infrared dataset are set up to run in MATLAB. For those w
 
 ### Setting Up
 
-Download the video data and code files from this repository (FDV_Data) and have them in your current working directory prior to running. The MATLAB scripts, the video to be processed, and Cleaner.m must be in your current working directory. The visualization scripts can be run after their corresponding processing files (e.g., run infrared_fire.m first and then run infrared_fire_results.m).
+Download the video data and code files from this repository (FDV_Data) and have them in your current working directory prior to running. The MATLAB scripts, the video to be processed, Cleaner.m, and GetImageVals.m must be in your current working directory. The visualization scripts can be run after their corresponding processing files (e.g., run infrared_fire.m first and then run infrared_fire_results.m).
 
 All files contain a clearly marked section at the top with all values that may be edited. Further descriptions on how these values are used are found in comments throughout the code.
 
