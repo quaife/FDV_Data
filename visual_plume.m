@@ -160,7 +160,7 @@ clear i toDisp r c
 % In case a video contains blank frames or frames have been dropped, check
 % that a frame is not blank and, if it is, interpolate it as the average
 % of the positions in the frames before and after
-for i = 2:total_frames
+for i = 2:total_frames-1
    if isempty(points{i})
        length_before = length(points{i-1});
        length_after = length(points{i+1});
