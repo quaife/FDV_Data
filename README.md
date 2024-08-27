@@ -7,7 +7,7 @@ Sample data and FDV code for experiments in the paper titled "Fire Dynamic Visio
 This repository contains infrared and visual video data for three experiments presented in the paper listed above:
 * Infrared dataset of fire spread (infrared_fire.mat)
 * Visual video of fire spread (visual_fire.mp4)
-* Visual video of plume evolution (image sequence within 'frames' directory)
+* Visual video of plume evolution (image sequence within 'visual_plume_frames' directory)
 
 Each video dataset has a corresponding file with sample FDV code that performs the processing steps described in our paper (infrared_fire.m, visual_fire.m, visual_plume.m) and a file that visualizes all output and results from the FDV code (infrared_fire_results.m, visual_fire_results.m, visual_plume_results.m). The code files come pre-loaded with values from the paper, but you are invited to experiment with the datasets and try your own!
 
