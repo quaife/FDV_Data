@@ -27,7 +27,7 @@ The visualization file can be run in sections depending on what you want to visu
 
 ### Executing program
 
-To run the code, have all aforementioned files in your current working directory and select 'Run' under the 'EDITOR' menu in MATLAB's interface.
+To run the code, have all necessary aforementioned files in your current working directory and select 'Run' under the 'EDITOR' menu in MATLAB's interface.
 
 Note that the visual_fire.m script is designed to demonstrate how to read frames from a video and the visual_plume.m script is designed to demonstrate how to load frames from an image sequence. In this scenario, the images are stored in a file inside the current working directory. After downloading the 'visual_plume_frames' directory, please unzip the file prior to use. The plume images are also provided in video format.
 
