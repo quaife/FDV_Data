@@ -11,6 +11,8 @@
 % This approach assumes the images are numbered sequentially
 directory = 'visual_plume_frames';
 files = 'visual_plume_frames/*.jpg';
+% Note! If using your own image sequence, make sure the files are loaded in
+% the correct order (use leading 0's if necessary)
 
 % If not processing the entire dataset, enter start and stop times
 start = 1; % seconds
