@@ -21,7 +21,7 @@
 % 'Run Section' option under the 'EDITOR' menu
 
 % Length of time to pause between frames when viewing:
-pause_time = 0.1;
+pause_time = 0.5;
 % To manually advance to the next frame, leave pause empty below: pause()
 
 %% Viewing segmented frames
