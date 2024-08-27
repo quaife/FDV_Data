@@ -33,6 +33,8 @@ Note that the visual_fire.m script is designed to demonstrate how to read frames
 
 If an image sequence is used instead of a video, remember to manually declare the fps and Hz variables, as in the infrared_fire.m and visual_plume.m files.
 
+For RGB-HSV image-based processing (as opposed to infrared dataset processing), when prompted to click on points representative of the area of interest, it is best practice to select many points around the area such that the intended range of color values is fully captured.
+
 ## Author
 
 Daryn Sagel, dsagel@fsu.edu
