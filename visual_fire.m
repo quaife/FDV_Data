@@ -30,6 +30,14 @@ alpha = 1/3;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Recommended RGB value ranges from the paper are
+% R: [220 255] G: [0 255] B: [0 255]
+% Recommended HSV value ranges from the paper are
+% H: [0 1]   S: [0 1]   V: [0 1]
+% To use these values, overwrite the suggestedrangeRGB and
+% suggestedrangeHSV arrays below.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Get duration and framerate from video data
 total_time = v.Duration;
