@@ -31,7 +31,7 @@ To run the code, have all necessary aforementioned files in your current working
 
 Note that the visual_fire.m script is designed to demonstrate how to read frames from a video and the visual_plume.m script is designed to demonstrate how to load frames from an image sequence. In this scenario, the images are stored in a file inside the current working directory. After downloading the 'visual_plume_frames' directory, please unzip the file prior to use. The plume images are also provided in video format.
 
-Note that you should specify a sampling frequency (Hz) that evenly divides into the video's framerate. For example, good sampling frequencies for a video recorded at 30 Hz include 1 Hz, 2 Hz, 3 Hz, 5 Hz, 6 Hz, 7.5 Hz, 10 Hz, 15 Hz, and 30 Hz. If an image sequence is used instead of a video, remember to manually declare the fps variable, as in the infrared_fire.m and visual_plume.m files.
+Note that you should specify a sampling frequency (Hz) that evenly divides into the video's framerate. For example, good sampling frequencies for a video recorded at 30 Hz include 1 Hz, 2 Hz, 3 Hz, 5 Hz, 6 Hz, 7.5 Hz, 10 Hz, 15 Hz, and 30 Hz, among others. If an image sequence is used instead of a video, remember to manually declare the fps variable, as in the infrared_fire.m and visual_plume.m files.
 
 For RGB-HSV image-based processing, the best practice is to select many points within the area of interest when prompted to click on points representative of that region. This helps to ensure the intended range of color values is fully captured.
 
