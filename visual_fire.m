@@ -39,11 +39,11 @@ papervals = 1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Get framerate from video data
-fps = v.FrameRate;
+fps = round(v.FrameRate);
 
 % Calculate how many frames are between samples
 % (in case of sampling at a rate other than the video's framerate)
-fphz = round(fps/Hz);
+fphz = fps/Hz;
 
 % Preallocate space for next steps
 total_frames = (stop - start)*Hz;
