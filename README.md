@@ -11,6 +11,8 @@ This repository contains infrared and visual video data for three experiments pr
 
 Each video dataset has a corresponding file with sample FDV code that performs the processing steps described in our paper (infrared_fire.m, visual_fire.m, visual_plume.m) and a shared file that visualizes all output and results from the FDV code (visualize.m). The code files contain suggested values from the paper, but you are invited to experiment with the datasets and try your own!
 
+The 'Examples' directory contains sample output from each of the above files.
+
 ## Getting Started
 
 ### Using MATLAB
