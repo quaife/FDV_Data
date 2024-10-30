@@ -39,7 +39,7 @@ papervals = 1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Get framerate from video data
-fps = round(v.FrameRate);
+fps = floor(v.FrameRate);
 
 % Calculate how many frames are between samples
 % (in case of sampling at a rate other than the video's framerate)
